@@ -2,7 +2,7 @@ var services = angular.module('maritime.services', ['ngResource']);
 
 services.factory('Tags', ['$resource',
     function($resource) {
-        return $resource('phones', {}, {
+        return $resource('tags', {}, {
             query: {method:'GET', isArray:true}
         });
     }
