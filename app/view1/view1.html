@@ -34,12 +34,12 @@
     </div>
     <div class="row">
       <div class="col-md-12">
-        <form class="form-inline">
+        <form novalidate class="form-inline">
           <div class="form-group">
             <label class="sr-only" for="tagname">Name</label>
-            <input type="text" class="form-control" id="tagname" placeholder="Name of Tag">
+            <input type="text" class="form-control" id="tagname" placeholder="Name of Tag" ng-model="tag.name">
           </div>
-          <button type="submit" class="btn btn-primary">Add Tag</button>
+          <button type="submit" class="btn btn-primary" ng-click="add(tag)">Add Tag</button>
         </form>
       </div>
     </div>
