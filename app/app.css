@@ -1,1 +1,7 @@
 /* app css stylesheet */
+#taglist {
+  margin-bottom: 10px;
+}
+#taglist span.label {
+  margin-right: 5px;
+}
