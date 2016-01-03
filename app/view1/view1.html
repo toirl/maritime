@@ -5,7 +5,7 @@
       <div class="col-md-12">Controller</div>
     </div>
     <div class="row">
-      <div class="col-md-12">
+      <div class="col-md-12" ng-controller="TimesCtrl">
         <h2>Timelog</h2>
         <p>Total Time: </p>
         <table class="table">
@@ -15,11 +15,11 @@
             <th>Tags</th>
             <th>Time</th>
           </tr>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
-          <tr>
+          <tr ng-repeat="time in times">
+            <td>{{time.start_date}}</td>
+            <td>{{time.description}}</td>
+            <td>{{time.tags}}</td>
+            <td>{{time.duration}}</td>
           </tr>
         </table>
       </div>

@@ -7,3 +7,11 @@ services.factory('Tags', ['$resource',
         });
     }
 ]);
+
+services.factory('Times', ['$resource',
+    function($resource) {
+        return $resource('times', {}, {
+            query: {method:'GET', isArray:true}
+        });
+    }
+]);
