@@ -23,7 +23,7 @@ controllers.controller('TimesCtrl', ['$scope', 'Times', function($scope, Times) 
   }
 }]);
 
-controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timers) {
+controllers.controller('TimersCtrl', ['$scope', '$rootScope', 'Timers', 'Times', function($scope, $rootScope, Timers, Times) {
 
   // All timers
   $scope.timers = Timers.query();
@@ -43,6 +43,11 @@ controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timer
 
   $scope.stop = function(timer) {
     timer.time.state = 0;
+    // TODO: Actually save the new time
+    // Save the stopped time on the server
+    //Times.save(timer.time);
+    // Notify listeners and provide the time that has been stopped
+    $rootScope.$broadcast('timer:stopped',timer.time);
   }
 
   $scope.pause = function(timer) {
