@@ -1,6 +1,8 @@
 <div class="row">
   <div class="col-md-8">
-    <h1>Timer</h1>
+    <h1>Timer
+    <button type="button" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i></button>
+    </h1>
     <div class="row">
       <div class="col-md-12">
         <table class="table">
@@ -26,7 +28,9 @@
     </div>
     <div class="row">
       <div class="col-md-12" ng-controller="TimesCtrl">
-        <h2>Timelog</h2>
+        <h2>Timelog
+        <button type="button" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i></button>
+        </h2>
         <p>Total Time: {{totalTime(times) | duration}}</p>
         <table class="table">
           <tr>
