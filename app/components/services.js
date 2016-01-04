@@ -21,3 +21,14 @@ services.factory('Times', ['$resource',
         });
     }
 ]);
+
+services.factory('Timers', ['$resource',
+    function($resource) {
+        return $resource('timers/:id', {id:'@id'}, {
+            // Default query method, this method can be deleted as it
+            // implements the same behaviour like the default query method of
+            // the resource.
+            query: {method:'GET', isArray:true}
+        });
+    }
+]);

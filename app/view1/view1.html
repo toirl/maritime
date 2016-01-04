@@ -1,29 +1,35 @@
 <div class="row">
   <div class="col-md-8">
-    <h1>Timer
-    <button type="button" class="btn btn-primary pull-right"><i class="glyphicon glyphicon-plus"></i></button>
-    </h1>
-    <div class="row">
-      <div class="col-md-12">
-        <table class="table">
-          <tr>
-            <th >Tags</th>
-            <th width="100px">Time</th>
-            <th width="150px">Controll</th>
-          </tr>
-          <tr>
-            <td>Tags</td>
-            <td>00:00:00</td>
-            <td>
-              <div class="btn-group" role="group" aria-label="Timelog controll">
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-comment"></i></button>
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-stop"></i></button>
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-pause"></i></button>
-                <button type="button" class="btn btn-default"><i class="glyphicon glyphicon-play"></i></button>
-              </div>
-            </td>
-          </tr>
-        </table>
+    <div ng-controller="TimersCtrl">
+      <h1>Timer
+        <div class="pull-right">
+          <button type="button" ng-click="add()" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
+          <!--
+          <button type="button" class="btn btn-danger"><i class="glyphicon glyphicon-trash"></i></button>
+          -->
+        </div>
+      </h1>
+      <div class="row">
+        <div class="col-md-12">
+          <table class="table">
+            <tr>
+              <th>Tags</th>
+              <th width="100px">Time</th>
+              <th width="100px">Controll</th>
+            </tr>
+            <tr ng-repeat="timer in timers">
+              <td>{{timer.tags}}</td>
+              <td>{{timer.time.duration}}</td>
+              <td>
+                <div class="pull-right">
+                  <button ng-click="stop(timer)" ng-show="timer.time.state == 1 || timer.time.state == 2" type="button" class="btn btn-default"><i class="glyphicon glyphicon-stop"></i></button>
+                  <button ng-click="pause(timer)" ng-show="timer.time.state == 1" type="button" class="btn btn-default"><i class="glyphicon glyphicon-pause"></i></button>
+                  <button ng-click="start(timer)" ng-show="timer.time.state == 0 || timer.time.state == 2" type="button" class="btn btn-default"><i class="glyphicon glyphicon-play"></i></button>
+                </div>
+              </td>
+            </tr>
+          </table>
+        </div>
       </div>
     </div>
     <div class="row">

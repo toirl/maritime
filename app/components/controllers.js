@@ -22,3 +22,30 @@ controllers.controller('TimesCtrl', ['$scope', 'Times', function($scope, Times) 
     return totalTime;
   }
 }]);
+
+controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timers) {
+
+  // All timers
+  $scope.timers = Timers.query();
+
+  $scope.add = function() {
+    $scope.timers.push(angular.copy({"tags": [], "time": {"duration": 0, "state": 0}}));
+  }
+
+  $scope.start = function(timer) {
+    for (var i = 0, len = $scope.timers.length; i < len; i++) {
+      if ($scope.timers[i].time.state == 1) {
+        $scope.timers[i].time.state = 2;
+      }
+    }
+    timer.time.state = 1;
+  }
+
+  $scope.stop = function(timer) {
+    timer.time.state = 0;
+  }
+
+  $scope.pause = function(timer) {
+    timer.time.state = 2;
+  }
+}]);
