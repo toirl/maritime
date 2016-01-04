@@ -38,7 +38,7 @@ controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timer
         $scope.timers[i].time.state = 2;
       }
     }
-    timer.time.state = 1;
+    timer.time = {"duration": 0, "state": 1, "tags": timer.tags, "start_date": moment().format('YYYY-MM-DD')}
   }
 
   $scope.stop = function(timer) {
