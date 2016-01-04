@@ -21,6 +21,13 @@ controllers.controller('TimesCtrl', ['$scope', 'Times', function($scope, Times) 
     }
     return totalTime;
   }
+
+  // Listen to different events in the application.
+  //
+  // A timer has been stopped. Add the time element to the current scope.
+  $scope.$on('timer:stopped', function(event, time) {
+    $scope.times.unshift(time);
+  });
 }]);
 
 controllers.controller('TimersCtrl', ['$scope', '$rootScope', 'Timers', 'Times', function($scope, $rootScope, Timers, Times) {
