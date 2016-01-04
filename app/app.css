@@ -2,7 +2,13 @@
 #taglist {
   margin-bottom: 10px;
 }
-#taglist span.label {
+
+span.label {
   margin-right: 5px;
   display: inline-block;
 }
+
+#taglist span.label {
+  padding: 10px;
+}
+

@@ -10,15 +10,17 @@
         </div>
       </h1>
       <div class="row">
-        <div class="col-md-12">
-          <table class="table">
+        <div class="col-md-12" >
+          <table class="table" id="timerlist">
             <tr>
               <th>Tags</th>
               <th width="100px">Time</th>
               <th width="100px">Controll</th>
             </tr>
             <tr ng-repeat="timer in timers">
-              <td>{{timer.tags}}</td>
+              <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(timer)'}">
+                <span class="label label-default" ng-repeat="tag in timer.tags">{{tag.name}}</span>
+              </td>
               <td>{{timer.time.duration}}</td>
               <td>
                 <div class="pull-right">
@@ -48,7 +50,9 @@
           <tr ng-repeat="time in times">
             <td>{{time.start_date}}</td>
             <td>{{time.description}}</td>
-            <td>{{time.tags}}</td>
+            <td>
+              <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}}</span>
+            </td>
             <td>{{time.duration | duration}}</td>
           </tr>
         </table>
@@ -59,7 +63,7 @@
     <h1>Tags</h1>
     <div class="row">
       <div class="col-md-12" id="taglist">
-        <span class="label label-default" ng-repeat="tag in tags">{{tag.name}}</span>
+        <span data-drag="true" jqyoui-draggable="{onStart:'startDragCallback(tag)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" class="label label-default" ng-repeat="tag in tags">{{tag.name}}</span>
       </div>
     </div>
     <div class="row">

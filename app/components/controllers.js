@@ -1,11 +1,18 @@
 var controllers = angular.module('maritime.controllers', []);
 
-controllers.controller('TagCtrl', ['$scope', 'Tags', function($scope, Tags) {
+controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($scope, $rootScope, Tags) {
   $scope.tags = Tags.query();
 
   $scope.add = function(tag) {
     $scope.tags.push(angular.copy(tag));
   }
+
+  // Callbacks for drag and drop
+  $scope.startDragCallback=function(event, ui, tag) {
+    console.log("drag success, data:", tag);
+    $rootScope.dragged = tag;
+  }
+
 }]);
 
 controllers.controller('TimesCtrl', ['$scope', 'Times', function($scope, Times) {
@@ -59,5 +66,14 @@ controllers.controller('TimersCtrl', ['$scope', '$rootScope', 'Timers', 'Times',
 
   $scope.pause = function(timer) {
     timer.time.state = 2;
+  }
+
+  $scope.DropCallback=function(event, ui, timer){
+    // FIXME: Using the rootscope like a global variable is hackish. Find a
+    // better way to find out which tag has been dragged (ti) <2016-01-05 00:54>
+    var tag = $rootScope.dragged;
+    if (timer.tags.indexOf(tag) == -1) {
+      timer.tags.push(tag);
+    }
   }
 }]);
