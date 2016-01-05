@@ -15,7 +15,7 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
 
 }]);
 
-controllers.controller('TimesCtrl', ['$scope', 'Times', function($scope, Times) {
+controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($scope, $rootScope, Times) {
   $scope.times = Times.query();
 
   // Calculate the total time of all time entries. Please note that this
@@ -35,6 +35,15 @@ controllers.controller('TimesCtrl', ['$scope', 'Times', function($scope, Times) 
   $scope.$on('timer:stopped', function(event, time) {
     $scope.times.unshift(time);
   });
+
+  $scope.DropCallback=function(event, ui, time){
+    // FIXME: Using the rootscope like a global variable is hackish. Find a
+    // better way to find out which tag has been dragged (ti) <2016-01-05 00:54>
+    var tag = $rootScope.dragged;
+    if (time.tags.indexOf(tag) == -1) {
+      time.tags.push(tag);
+    }
+  }
 }]);
 
 controllers.controller('TimersCtrl', ['$scope', '$rootScope', 'Timers', 'Times', function($scope, $rootScope, Timers, Times) {
