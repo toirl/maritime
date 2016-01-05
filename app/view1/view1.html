@@ -19,7 +19,8 @@
             </tr>
             <tr ng-repeat="timer in timers">
               <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(timer)'}">
-                <span class="label label-default" ng-repeat="tag in timer.tags">{{tag.name}}</span>
+                <span class="label label-default" ng-repeat="tag in
+                timer.tags">{{tag.name}} <i class="glyphicon glyphicon-remove"></i></span>
               </td>
               <td>{{timer.time.duration}}</td>
               <td>
@@ -50,8 +51,8 @@
           <tr ng-repeat="time in times">
             <td>{{time.start_date}}</td>
             <td>{{time.description}}</td>
-            <td>
-              <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}}</span>
+            <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(time)'}">
+              <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}} <i class="glyphicon glyphicon-remove"></i></span>
             </td>
             <td>{{time.duration | duration}}</td>
           </tr>
