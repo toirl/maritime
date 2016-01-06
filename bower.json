@@ -1,10 +1,10 @@
 {
-  "name": "angular-seed",
-  "description": "A starter project for AngularJS",
-  "version": "0.0.0",
-  "homepage": "https://github.com/angular/angular-seed",
-  "license": "MIT",
+  "name": "maritime",
   "private": true,
+  "version": "0.0.0",
+  "description": "Time tracking client using the gisela time tracking service",
+  "repository": "https://github.com/toirl/maritime",
+  "license": "MIT",
   "dependencies": {
     "angular": "~1.4.0",
     "angular-route": "~1.4.0",
