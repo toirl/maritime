@@ -92,8 +92,9 @@ controllers.controller('TimersCtrl', ['$scope', '$rootScope', 'Timers', 'Times',
     // Save the stopped time on the server
     //Times.save(timer.time);
     // Notify listeners and provide the time that has been stopped
-    $rootScope.$broadcast('timer:stopped',timer.time);
     setTags(timer.time, timer.tags)
+    timer.time.description = timer.description;
+    $rootScope.$broadcast('timer:stopped',timer.time);
   }
 
   $scope.pause = function(timer) {

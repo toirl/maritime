@@ -13,11 +13,20 @@
         <div class="col-md-12" >
           <table class="table" id="timerlist">
             <tr>
+              <th>Description</th>
               <th>Tags</th>
               <th width="100px">Time</th>
               <th width="100px">Controll</th>
             </tr>
             <tr ng-repeat="timer in timers">
+              <td>
+                <form novalidate>
+                  <div class="form-group">
+                    <label class="sr-only" for="timerdescription">Description of the task</label>
+                    <input type="text" class="form-control input-sm" id="timerdescription" placeholder="Describe what you´re about to do" ng-model="timer.description">
+                  </div>
+                </form>
+              </td>
               <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(timer)'}">
                 <span class="label label-default" ng-repeat="tag in timer.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(timer, tag)"></i></span>
               </td>
