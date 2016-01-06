@@ -51,7 +51,7 @@
             <td>{{time.start_date}}</td>
             <td>{{time.description}}</td>
             <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(time)'}">
-              <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}} <i class="glyphicon glyphicon-remove"></i></span>
+              <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(time, tag)"></i></span>
             </td>
             <td>{{time.duration | duration}}</td>
           </tr>

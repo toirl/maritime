@@ -29,6 +29,22 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
     return totalTime;
   }
 
+  // Remove the tag from the time
+  $scope.removeTag = function(time, tag) {
+    var index = time.tags.indexOf(tag)
+    if (index > -1) {
+       time.tags.splice(index, 1)
+    }
+    // TODO: Update the time on server (ti) <2016-01-06 20:55>
+  }
+  var addTag = function(time, tag) {
+    var index = time.tags.indexOf(tag)
+    if (time.tags.indexOf(tag) == -1) {
+      time.tags.push(tag);
+    }
+    // TODO: Update the time on server (ti) <2016-01-06 20:55>
+  }
+
   // Listen to different events in the application.
   //
   // A timer has been stopped. Add the time element to the current scope.
@@ -39,10 +55,7 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
   $scope.DropCallback=function(event, ui, time){
     // FIXME: Using the rootscope like a global variable is hackish. Find a
     // better way to find out which tag has been dragged (ti) <2016-01-05 00:54>
-    var tag = $rootScope.dragged;
-    if (time.tags.indexOf(tag) == -1) {
-      time.tags.push(tag);
-    }
+    addTag(time, $rootScope.dragged)
   }
 }]);
 
