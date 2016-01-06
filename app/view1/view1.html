@@ -19,8 +19,7 @@
             </tr>
             <tr ng-repeat="timer in timers">
               <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(timer)'}">
-                <span class="label label-default" ng-repeat="tag in
-                timer.tags">{{tag.name}} <i class="glyphicon glyphicon-remove"></i></span>
+                <span class="label label-default" ng-repeat="tag in timer.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(timer, tag)"></i></span>
               </td>
               <td>{{timer.time.duration}}</td>
               <td>
