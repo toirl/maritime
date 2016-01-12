@@ -4,6 +4,7 @@
 angular.module('maritime', [
   'ngRoute',
   'ngDragDrop',
+  'timer',
   'maritime.version',
   'maritime.filters',
   'maritime.services',
