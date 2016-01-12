@@ -53,7 +53,7 @@
                   <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(timer)'}">
                     <span class="label label-default" ng-repeat="tag in timer.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(timer, tag)"></i></span>
                   </td>
-                  <td>{{timer.time.duration}}</td>
+                  <td><timer interval="1000" auto-start="false">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></td>
                   <td>
                     <div class="pull-right">
                       <button ng-click="stop(timer)" ng-show="timer.time.state == 1 || timer.time.state == 2" type="button" class="btn btn-default"><i class="glyphicon glyphicon-stop"></i></button>
@@ -128,6 +128,8 @@
   <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="bower_components/moment/min/moment.min.js"></script>
   <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+  <script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+  <script src="bower_components/humanize-duration/humanize-duration.js"></script>
   <script src="app.js"></script>
   <script src="components/services.js"></script>
   <script src="components/controllers.js"></script>
