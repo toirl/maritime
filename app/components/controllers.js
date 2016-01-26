@@ -1,7 +1,11 @@
 var controllers = angular.module('maritime.controllers', []);
 
 controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($scope, $rootScope, Tags) {
-  $scope.tags = Tags.query();
+  $scope.tags = [];
+  var response = Tags.query();
+  response.$promise.then(function(data){
+      $scope.tags = data.data;
+  });
 
   $scope.add = function(tag) {
     $scope.tags.push(angular.copy(tag));
@@ -16,7 +20,11 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
 }]);
 
 controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($scope, $rootScope, Times) {
-  $scope.times = Times.query();
+  $scope.times = []
+  var response = Times.query();
+  response.$promise.then(function(data){
+      $scope.times = data.data;
+  });
 
   // Calculate the total time of all time entries. Please note that this
   // function seems to be called per item in the $scope.times array, and is
