@@ -108,7 +108,7 @@
         </div>
         <div class="row">
           <div class="col-md-12" id="taglist">
-            <span data-drag="true" jqyoui-draggable="{onStart:'startDragCallback(tag)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" class="label label-default" ng-repeat="tag in tags">{{tag.name}}</span>
+            <span data-drag="true" jqyoui-draggable="{onStart:'startDragCallback(tag)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" class="label label-default" ng-repeat="tag in tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="remove(tag)"></i></span>
           </div>
         </div>
       </div>
