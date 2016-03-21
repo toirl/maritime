@@ -19,6 +19,8 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
         var response = Tags.remove(tag);
         response.$promise.then(function(data){
           $scope.tags.splice(index, 1);
+          // TODO: Propagate the deleting to other controllers as the tag need
+          // to be deleted in timers and timelogs too (ti) <2016-03-21 20:12> 
         });
     }
   }
