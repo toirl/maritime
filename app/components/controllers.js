@@ -8,7 +8,10 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
   });
 
   $scope.add = function(tag) {
-    $scope.tags.push(angular.copy(tag));
+    var response = Tags.save(tag);
+    response.$promise.then(function(data){
+      $scope.tags.push(angular.copy(tag));
+    });
   }
 
   // Callbacks for drag and drop
