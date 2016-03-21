@@ -46,7 +46,7 @@
                     <form novalidate>
                       <div class="form-group">
                         <label class="sr-only" for="timerdescription">Description of the task</label>
-                        <input type="text" class="form-control input-sm" id="timerdescription" placeholder="Describe what you´re about to do" ng-model="timer.description">
+                        <input ng-blur="update(timer)" type="text" class="form-control input-sm" id="timerdescription" placeholder="Describe what you´re about to do" ng-model="timer.description">
                       </div>
                     </form>
                   </td>

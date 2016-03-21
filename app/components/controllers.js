@@ -83,10 +83,17 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
 
 controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timers) {
 
-  $scope.timers = Timers.query();
+  $scope.timers = []
+  var response = Timers.query();
+  response.$promise.then(function(data){
+      $scope.timers = data.data;
+  });
 
   $scope.add = function() {
-    $scope.timers.push(angular.copy({"tags": [], "time": {"duration": 0, "state": 0}}));
+    var response = Timers.save({});
+    response.$promise.then(function(data) {
+      $scope.timers.push(data.data);
+    });
   }
 
 }]);
@@ -102,14 +109,20 @@ controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', 
       time.tags = copytags;
     }
 
+    $scope.update = function() {
+        Timers.update($scope.timer);
+    }
+
     $scope.start = function() {
         if ($scope.timer.time.state == 2) {
             console.log("Timer resumed", $scope.timer.time.state);
             $scope.timer.time.state = 1;
+            Timers.update($scope.timer);
             $scope.$broadcast("timer-resume");
         } else {
             console.log("Timer start", $scope.timer.time.state);
             $scope.timer.time = {"duration": 0, "state": 1, "start_date": moment().format('YYYY-MM-DD')}
+            Timers.update($scope.timer);
             $scope.$broadcast("timer-start");
         }
     };
@@ -147,6 +160,7 @@ controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', 
       var tag = $rootScope.dragged;
       if (timer.tags.indexOf(tag) == -1) {
         timer.tags.push(tag);
+        Timers.update(timer);
       }
     }
 
@@ -154,6 +168,7 @@ controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', 
       var index = timer.tags.indexOf(tag)
       if (index > -1) {
          timer.tags.splice(index, 1)
+         Timers.update(timer);
       }
     }
 

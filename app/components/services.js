@@ -28,7 +28,8 @@ services.factory('Timers', ['$resource',
             // Default query method, this method can be deleted as it
             // implements the same behaviour like the default query method of
             // the resource.
-            query: {method:'GET', isArray:true}
+            query: {method:'GET'},
+            update: {method:'PUT'},
         });
     }
 ]);
