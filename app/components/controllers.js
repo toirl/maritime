@@ -13,6 +13,15 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
       $scope.tags.push(data.data);
     });
   }
+  $scope.remove = function(tag) {
+    var index = $scope.tags.indexOf(tag)
+    if (index > -1) {
+        var response = Tags.remove(tag);
+        response.$promise.then(function(data){
+          $scope.tags.splice(index, 1);
+        });
+    }
+  }
 
   // Callbacks for drag and drop
   $scope.startDragCallback=function(event, ui, tag) {
