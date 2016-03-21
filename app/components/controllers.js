@@ -10,7 +10,7 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
   $scope.add = function(tag) {
     var response = Tags.save(tag);
     response.$promise.then(function(data){
-      $scope.tags.push(angular.copy(tag));
+      $scope.tags.push(data.data);
     });
   }
 
