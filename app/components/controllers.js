@@ -83,18 +83,28 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
 
 controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timers) {
 
-  $scope.timers = []
-  var response = Timers.query();
-  response.$promise.then(function(data){
-      $scope.timers = data.data;
-  });
-
-  $scope.add = function() {
-    var response = Timers.save({});
-    response.$promise.then(function(data) {
-      $scope.timers.push(data.data);
+    $scope.timers = []
+    var response = Timers.query();
+    response.$promise.then(function(data){
+        $scope.timers = data.data;
     });
-  }
+    
+    $scope.add = function() {
+        var response = Timers.save({});
+        response.$promise.then(function(data) {
+            $scope.timers.push(data.data);
+      });
+    }
+
+    $scope.remove = function(timer) {
+        var index = $scope.timers.indexOf(timer)
+        if (index > -1) {
+            var response = Timers.delete(timer);
+            response.$promise.then(function(data) {
+                $scope.timers.splice(index, 1);
+            });
+        }
+    };
 
 }]);
 
@@ -112,6 +122,7 @@ controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', 
     $scope.update = function() {
         Timers.update($scope.timer);
     }
+
 
     $scope.start = function() {
         if ($scope.timer.time.state == 2) {

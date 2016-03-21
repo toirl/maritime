@@ -36,12 +36,15 @@
             <div class="col-md-12" >
               <table class="table" id="timerlist">
                 <tr>
-                  <th>Description</th>
+                  <th colspan="2">Description</th>
                   <th>Tags</th>
                   <th width="100px">Time</th>
-                  <th width="100px">Controll</th>
+                  <th width="100px" class="text-right">Controll</th>
                 </tr>
                 <tr ng-repeat="timer in timers" ng-controller="TimerCtrl">
+                  <td>
+                    <i class="glyphicon glyphicon-trash" ng-click="remove(timer)"></i>
+                  </td>
                   <td>
                     <form novalidate>
                       <div class="form-group">
