@@ -1,6 +1,0 @@
-[
-  {"start_date": "2015-01-03", "description": "Foo description", "tags": [{"id": 2, "name": "Bar", "description": "Bar description"}, {"id": 3, "name": "Baz", "description": "Baz description"}], "duration": 20},
-  {"start_date": "2015-01-03", "description": "Bar description", "tags":
-  [{"id": 1, "name": "Foo", "description": "Foo description"}], "duration": 200},
-  {"start_date": "2015-01-03", "description": "Baz description", "tags": [{"id": 2, "name": "Bar", "description": "Bar description"}, {"id": 3, "name": "Baz", "description": "Baz description"}], "duration": 2000}
-]
