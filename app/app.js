@@ -1,7 +1,7 @@
 'use strict';
 
 // Declare app level module which depends on views, and components
-angular.module('maritime', [
+var app = angular.module('maritime', [
   'ngRoute',
   'ngDragDrop',
   'timer',
@@ -10,3 +10,7 @@ angular.module('maritime', [
   'maritime.services',
   'maritime.controllers'
 ]);
+
+app.constant('AppConfig', {
+    url: 'http://localhost:8080',
+});
