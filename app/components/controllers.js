@@ -153,9 +153,7 @@ controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', 
         // remove a tag from a timer the tag will be removed from the times
         // created by this timer too. Using JSON here is the shortest way.
         $scope.timer.time.tags = JSON.parse(JSON.stringify($scope.timer.tags));
-        // TODO: Actually save the new time
-        // Save the stopped time on the server
-        //Times.save($scope.timer.time);
+        Times.save($scope.timer.time);
         $rootScope.$broadcast('timer:stopped',$scope.timer.time);
     };
 
