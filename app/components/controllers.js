@@ -34,11 +34,27 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
 }]);
 
 controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($scope, $rootScope, Times) {
-  $scope.times = []
+  $scope.times = [];
+
+  // editingdata stores information on which table row is currently edited.
+  $scope.editingData = [];
+
   var response = Times.query();
   response.$promise.then(function(data){
       $scope.times = data.data;
   });
+
+  $scope.isEditing = function(time) {
+      return $scope.editingData.indexOf(time.id) > -1;
+  }
+  $scope.editStart = function(time) {
+      $scope.editingData.push(time.id);
+  }
+  $scope.editStop = function(time) {
+      $scope.editingData.splice($scope.editingData.indexOf(time.id),1);
+      Times.update(time);
+  }
+
 
   // Calculate the total time of all time entries. Please note that this
   // function seems to be called per item in the $scope.times array, and is

@@ -66,27 +66,6 @@
             </div>
           </div>
         </div>
-        <div class="row">
-          <div class="col-md-12" ng-controller="TimesCtrl">
-            <h2>Timelog: {{totalTime(times) | duration}}</h2>
-            <table class="table">
-              <tr>
-                <th>Date</th>
-                <th>Description</th>
-                <th>Tags</th>
-                <th>Time</th>
-              </tr>
-              <tr ng-repeat="time in times">
-                <td>{{time.start_date}}</td>
-                <td>{{time.description}}</td>
-                <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(time)'}">
-                  <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(time, tag)"></i></span>
-                </td>
-                <td>{{time.duration | duration}}</td>
-              </tr>
-            </table>
-          </div>
-        </div>
       </div>
       <div class="col-md-4" ng-controller="TagCtrl">
         <h1>Tags</h1>
@@ -106,6 +85,31 @@
             <span data-drag="true" jqyoui-draggable="{onStart:'startDragCallback(tag)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" class="label label-default" ng-repeat="tag in tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="remove(tag)"></i></span>
           </div>
         </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-12" ng-controller="TimesCtrl">
+        <h2>Timelog: {{totalTime(times) | duration}}</h2>
+        <table class="table">
+          <tr>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Tags</th>
+            <th>Time</th>
+          </tr>
+          <tr ng-repeat="time in times">
+            <td>{{time.start_date}}</td>
+            <td>
+              <div ng-hide="isEditing(time)" ng-click="editStart(time)">{{time.description}}</div>
+              <div ng-show="isEditing(time)"><textarea ng-blur="editStop(time)" ng-model="time.description" >{{time.description}}</textarea></div>
+            </td>
+            <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(time)'}">
+              <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(time, tag)"></i></span>
+            </td>
+            <td>{{time.duration | duration}}</td>
+            </td>
+          </tr>
+        </table>
       </div>
     </div>
     <div>Maritime: v<span app-version></span></div>
