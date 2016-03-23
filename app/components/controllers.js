@@ -66,6 +66,15 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
     }
     return totalTime;
   }
+  //
+  // Remove the timelog
+  $scope.remove = function(time) {
+    var index = $scope.times.indexOf(time)
+    if (index > -1) {
+        Times.remove(time);
+        $scope.times.splice(index, 1)
+    }
+  }
 
   // Remove the tag from the time
   $scope.removeTag = function(time, tag) {

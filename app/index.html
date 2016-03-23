@@ -96,6 +96,7 @@
             <th>Description</th>
             <th>Tags</th>
             <th>Time</th>
+            <th class="text-right" width="100px">Control</th>
           </tr>
           <tr ng-repeat="time in times">
             <td>{{time.start_date}}</td>
@@ -107,6 +108,8 @@
               <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(time, tag)"></i></span>
             </td>
             <td>{{time.duration | duration}}</td>
+            <td class="text-right">
+              <button ng-click="remove(time)" type="button" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
             </td>
           </tr>
         </table>
