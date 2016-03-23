@@ -33,15 +33,12 @@
             <div class="col-md-12" >
               <table class="table" id="timerlist">
                 <tr>
-                  <th colspan="2">Description</th>
+                  <th>Description</th>
                   <th>Tags</th>
                   <th width="100px">Time</th>
-                  <th width="100px" class="text-right">Controll</th>
+                  <th width="150px" class="text-right">Controll</th>
                 </tr>
                 <tr ng-repeat="timer in timers" ng-controller="TimerCtrl">
-                  <td>
-                    <i class="glyphicon glyphicon-trash" ng-click="remove(timer)"></i>
-                  </td>
                   <td>
                     <form novalidate>
                       <div class="form-group">
@@ -56,6 +53,7 @@
                   <td><timer interval="1000" auto-start="false">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></td>
                   <td>
                     <div class="pull-right">
+                      <button ng-click="remove(timer)" type="button" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
                       <button ng-click="stop(timer)" ng-show="timer.time.state == 1 || timer.time.state == 2" type="button" class="btn btn-default"><i class="glyphicon glyphicon-stop"></i></button>
                       <button ng-click="pause(timer)" ng-show="timer.time.state == 1" type="button" class="btn btn-default"><i class="glyphicon glyphicon-pause"></i></button>
                       <button ng-click="start(timer)" ng-show="timer.time.state == 0 || timer.time.state == 2" type="button" class="btn btn-default"><i class="glyphicon glyphicon-play"></i></button>
