@@ -80,16 +80,16 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
   $scope.removeTag = function(time, tag) {
     var index = time.tags.indexOf(tag)
     if (index > -1) {
-       time.tags.splice(index, 1)
+        Times.update(time);
+        time.tags.splice(index, 1)
     }
-    // TODO: Update the time on server (ti) <2016-01-06 20:55>
   }
   var addTag = function(time, tag) {
     var index = time.tags.indexOf(tag)
     if (time.tags.indexOf(tag) == -1) {
-      time.tags.push(tag);
+        Times.update(time);
+        time.tags.push(tag);
     }
-    // TODO: Update the time on server (ti) <2016-01-06 20:55>
   }
 
   // Listen to different events in the application.
