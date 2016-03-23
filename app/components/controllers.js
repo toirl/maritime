@@ -178,8 +178,10 @@ controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', 
         // remove a tag from a timer the tag will be removed from the times
         // created by this timer too. Using JSON here is the shortest way.
         $scope.timer.time.tags = JSON.parse(JSON.stringify($scope.timer.tags));
-        Times.save($scope.timer.time);
-        $rootScope.$broadcast('timer:stopped',$scope.timer.time);
+        var response = Times.save($scope.timer.time);
+        response.$promise.then(function(data){
+            $rootScope.$broadcast('timer:stopped', data.data);
+        });
     };
 
     $scope.$on("timer-stopped", function(event, data) {
