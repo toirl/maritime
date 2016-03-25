@@ -1,20 +1,19 @@
 {
   "name": "maritime",
   "private": true,
-  "version": "0.0.0",
+  "version": "0.2.0",
   "description": "Time tracking client using the gisela time tracking service",
   "repository": "https://github.com/toirl/maritime",
   "license": "MIT",
   "dependencies": {
-    "angular": "~1.4.0",
-    "angular-route": "~1.4.0",
-    "angular-loader": "~1.4.0",
-    "angular-mocks": "~1.4.0",
-    "angular-resource": "~1.4.0",
+    "angular": "",
+    "angular-route": "",
+    "angular-loader": "",
+    "angular-mocks": "",
+    "angular-resource": "",
     "angular-dragdrop": "",
     "angular-timer": "~1.3.3",
-    "html5-boilerplate": "~5.2.0",
-    "bootstrap": "~3",
-    "moment": "~2"
+    "angular-material": "",
+    "moment": "~2",
   }
 }
