@@ -1,138 +1,119 @@
 <!DOCTYPE html>
-<!--[if lt IE 7]>      <html lang="en" ng-app="maritime" class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
-<!--[if IE 7]>         <html lang="en" ng-app="maritime" class="no-js lt-ie9 lt-ie8"> <![endif]-->
-<!--[if IE 8]>         <html lang="en" ng-app="maritime" class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html lang="en" ng-app="maritime" class="no-js"> <!--<![endif]-->
-<head>
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Maritime</title>
-  <meta name="description" content="">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/normalize.css">
-  <link rel="stylesheet" href="bower_components/html5-boilerplate/dist/css/main.css">
-  <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-  <link rel="stylesheet" href="app.css">
-  <script src="bower_components/html5-boilerplate/dist/js/vendor/modernizr-2.8.3.min.js"></script>
-</head>
-<body>
-  <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
-  <![endif]-->
+<html lang="en" >
+  <head>
+    <title>Maritime – Timetracking made easy!</title>
 
-  <div class="container">
-    <div class="row">
-      <div class="col-md-8">
-        <div ng-controller="TimersCtrl">
-          <h1>Timer
-            <div class="pull-right">
-              <button type="button" ng-click="add()" class="btn btn-primary"><i class="glyphicon glyphicon-plus"></i></button>
-            </div>
-          </h1>
-          <div class="row">
-            <div class="col-md-12" >
-              <table class="table" id="timerlist">
-                <tr>
-                  <th>Description</th>
-                  <th>Tags</th>
-                  <th width="100px">Time</th>
-                  <th width="150px" class="text-right">Controll</th>
-                </tr>
-                <tr ng-repeat="timer in timers" ng-controller="TimerCtrl">
-                  <td>
-                    <form novalidate>
-                      <div class="form-group">
-                        <label class="sr-only" for="timerdescription">Description of the task</label>
-                        <input ng-blur="update(timer)" type="text" class="form-control input-sm" id="timerdescription" placeholder="Describe what you´re about to do" ng-model="timer.description">
-                      </div>
-                    </form>
-                  </td>
-                  <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(timer)'}">
-                    <span class="label label-default" ng-repeat="tag in timer.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(timer, tag)"></i></span>
-                  </td>
-                  <td><timer interval="1000" auto-start="false">{{hhours}}:{{mminutes}}:{{sseconds}}</timer></td>
-                  <td>
-                    <div class="pull-right">
-                      <button ng-click="remove(timer)" type="button" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-                      <button ng-click="stop(timer)" ng-show="timer.time.state == 1 || timer.time.state == 2" type="button" class="btn btn-default"><i class="glyphicon glyphicon-stop"></i></button>
-                      <button ng-click="pause(timer)" ng-show="timer.time.state == 1" type="button" class="btn btn-default"><i class="glyphicon glyphicon-pause"></i></button>
-                      <button ng-click="start(timer)" ng-show="timer.time.state == 0 || timer.time.state == 2" type="button" class="btn btn-default"><i class="glyphicon glyphicon-play"></i></button>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-          </div>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="description" content="">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
+
+    <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
+    <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"/>
+    <link rel="stylesheet" href="app.css"/>
+
+    <style type="text/css">
+        /**
+         * Hide when Angular is not yet loaded and initialized
+         */
+        [ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+          display: none !important;
+        }
+    </style>
+  </head>
+
+  <body ng-app="maritime">
+    <div layout="column" ng-cloak>
+      <md-toolbar>
+        <div class="md-toolbar-tools">
+          <h2 class="md-flex">Maritime</h2>
         </div>
-      </div>
-      <div class="col-md-4" ng-controller="TagCtrl">
-        <h1>Tags</h1>
-        <div class="row">
-          <div class="col-md-12">
-            <form novalidate class="form-inline">
-              <div class="form-group">
-                <label class="sr-only" for="tagname">Name</label>
-                <input type="text" class="form-control" id="tagname" placeholder="Name of Tag" ng-model="tag.name">
+      </md-toolbar>
+      <div layout="row" layout-xs="column">
+        <md-content flex-md="35" layout-padding id="sidebar" ng-controller="TimersCtrl">
+          <md-subheader class="md-primary">
+            <md-button class="md-fab md-mini" aria-label="Add a new Timer" ng-click="add()">
+              <i class="fa fa-plus"></i>
+            </md-button> Add a new Timer
+          </md-subheader>
+          <md-list>
+            <md-list-item class="md-3-line"  ng-repeat="timer in timers" ng-controller="TimerCtrl">
+              <div class="md-list-item-text" layout="column">
+                <h3><i class="fa fa-clock-o"></i> <timer interval="1000" auto-start="false">{{hhours}}:{{mminutes}}:{{sseconds}}</timer> h</h3>
+                <md-input-container>
+                  <label>Description</label>
+                  <input ng-blur="update(timer)" ng-model="timer.description" placeholder="Describe what you´re about to do">
+                </md-input-container>
+                <md-chips ng-model="ctrl.selectedVegetables" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)" md-require-match="ctrl.autocompleteDemoRequireMatch">
+                  <md-autocomplete md-selected-item="ctrl.selectedItem"
+                    md-search-text="ctrl.searchText" md-items="item in
+                    ctrl.querySearch(ctrl.searchText)"
+                    md-item-text="item.name" placeholder="Add Tags...">
+                    <span md-highlight-text="ctrl.searchText">{{item.name}} :: {{item.type}}</span>
+                  </md-autocomplete>
+                  <md-chip-template>
+                    <span>
+                      <strong>{{$chip.name}}</strong>
+                      <em>({{$chip.type}})</em>
+                    </span>
+                  </md-chip-template>
+                </md-chips>
+                <div layout="row" layout-align="end right">
+                  <div>
+                    <md-button class="md-icon-button" ng-click="remove(timer)">
+                      <i class="fa fa-trash"></i>
+                    </md-button>
+                  </div>
+                  <div layout="row">
+                    <md-button class="md-icon-button" ng-click="stop(timer)" ng-show="timer.time.state == 1 || timer.time.state == 2">
+                      <i class="fa fa-stop"></i>
+                    </md-button>
+                    <md-button class="md-icon-button" ng-click="pause(timer)" ng-show="timer.time.state == 1">
+                      <i class="fa fa-pause"></i>
+                    </md-button>
+                    <md-button class="md-icon-button" ng-click="start(timer)" ng-show="timer.time.state == 0 || timer.time.state == 2">
+                      <i class="fa fa-play"></i> 
+                    </md-button>
+                  </div>
+                </div>
               </div>
-              <button type="submit" class="btn btn-primary" ng-click="add(tag)">Add Tag</button>
-            </form>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-md-12" id="taglist">
-            <span data-drag="true" jqyoui-draggable="{onStart:'startDragCallback(tag)'}" data-jqyoui-options="{revert: 'invalid', helper: 'clone'}" class="label label-default" ng-repeat="tag in tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="remove(tag)"></i></span>
-          </div>
-        </div>
+            </md-list-item>
+          </md-list>
+        </md-content>
+        <md-content flex layout-padding layout-fill>
+          <md-tabs md-dynamic-height="" md-border-bottom="">
+            <md-tab label="Timelog">
+              <md-content class="md-padding">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
+              </md-content>
+            </md-tab>
+            <md-tab label="Tags">
+              <md-content class="md-padding">
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi. Aliquam erat volutpat. Nam placerat, tortor in ultrices porttitor, orci enim rutrum enim, vel tempor sapien arcu a tellus. Vivamus convallis sodales ante varius gravida. Curabitur a purus vel augue ultrices ultricies id a nisl. Nullam malesuada consequat diam, a facilisis tortor volutpat et. Sed urna dolor, aliquet vitae posuere vulputate, euismod ac lorem. Sed felis risus, pulvinar at interdum quis, vehicula sed odio. Phasellus in enim venenatis, iaculis tortor eu, bibendum ante. Donec ac tellus dictum neque volutpat blandit. Praesent efficitur faucibus risus, ac auctor purus porttitor vitae. Phasellus ornare dui nec orci posuere, nec luctus mauris semper.</p>
+                <p>Morbi viverra, ante vel aliquet tincidunt, leo dolor pharetra quam, at semper massa orci nec magna. Donec posuere nec sapien sed laoreet. Etiam cursus nunc in condimentum facilisis. Etiam in tempor tortor. Vivamus faucibus egestas enim, at convallis diam pulvinar vel. Cras ac orci eget nisi maximus cursus. Nunc urna libero, viverra sit amet nisl at, hendrerit tempor turpis. Maecenas facilisis convallis mi vel tempor. Nullam vitae nunc leo. Cras sed nisl consectetur, rhoncus sapien sit amet, tempus sapien.</p>
+                <p>Integer turpis erat, porttitor vitae mi faucibus, laoreet interdum tellus. Curabitur posuere molestie dictum. Morbi eget congue risus, quis rhoncus quam. Suspendisse vitae hendrerit erat, at posuere mi. Cras eu fermentum nunc. Sed id ante eu orci commodo volutpat non ac est. Praesent ligula diam, congue eu enim scelerisque, finibus commodo lectus.</p>
+              </md-content>
+            </md-tab>
+          </md-tabs>
+        </md-content>
       </div>
     </div>
-    <div class="row">
-      <div class="col-md-12" ng-controller="TimesCtrl">
-        <h2>Timelog: {{totalTime(times) | duration}}</h2>
-        <table class="table">
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Tags</th>
-            <th>Time</th>
-            <th class="text-right" width="100px">Control</th>
-          </tr>
-          <tr ng-repeat="time in times">
-            <td>{{time.start_date}}</td>
-            <td>
-              <div ng-hide="isEditing(time)" ng-click="editStart(time)">{{time.description}}</div>
-              <div ng-show="isEditing(time)"><textarea ng-blur="editStop(time)" ng-model="time.description" >{{time.description}}</textarea></div>
-            </td>
-            <td data-drop="true" jqyoui-droppable="{multiple:true, onDrop:'DropCallback(time)'}">
-              <span class="label label-default" ng-repeat="tag in time.tags">{{tag.name}} <i class="glyphicon glyphicon-remove" ng-click="removeTag(time, tag)"></i></span>
-            </td>
-            <td>{{time.duration | duration}}</td>
-            <td class="text-right">
-              <button ng-click="remove(time)" type="button" class="btn btn-default"><i class="glyphicon glyphicon-trash"></i></button>
-            </td>
-          </tr>
-        </table>
-      </div>
-    </div>
-    <div>Maritime: v<span app-version></span></div>
-  </div>
-
-
-  <!-- In production use:
-  <script src="//ajax.googleapis.com/ajax/libs/angularjs/x.x.x/angular.min.js"></script>
-  -->
-  <script src="bower_components/angular/angular.js"></script>
-  <script src="bower_components/angular-route/angular-route.js"></script>
-  <script src="bower_components/angular-resource/angular-resource.min.js"></script>
-  <script src="bower_components/jquery/dist/jquery.min.js"></script>
-  <script src="bower_components/jquery-ui/jquery-ui.min.js"></script>
-  <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
-  <script src="bower_components/moment/min/moment.min.js"></script>
-  <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
-  <script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
-  <script src="bower_components/humanize-duration/humanize-duration.js"></script>
-  <script src="app.js"></script>
-  <script src="components/services.js"></script>
-  <script src="components/controllers.js"></script>
-  <script src="components/filters.js"></script>
-</body>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.min.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.min.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="bower_components/moment/min/moment.min.js"></script>
+    <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
+    <script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
+    <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+    <script src="app.js"></script>
+    <script src="components/services.js"></script>
+    <script src="components/controllers.js"></script>
+    <script src="components/filters.js"></script>
+  </body>
 </html>

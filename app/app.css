@@ -1,18 +1,21 @@
-/* app css stylesheet */
-#taglist {
-  margin-top: 5px;
+body {
 }
 
-#taglist span.label {
-  margin-bottom: 5px;
+.main {
 }
 
-span.label {
-  margin-right: 5px;
-  display: inline-block;
+#sidebar .md.subheader-inner {
+    padding: 0px;
 }
 
-#taglist span.label {
-  padding: 10px;
+#sidebar md-input-container {
+    margin-bottom: -20px;
 }
 
+.content {
+}
+
+.md-chips {
+    padding: 0px 5px;
+    font-size: 10px;
+}
