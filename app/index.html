@@ -45,34 +45,36 @@
                   <label>Description</label>
                   <input ng-blur="update(timer)" ng-model="timer.description" placeholder="Describe what you´re about to do">
                 </md-input-container>
-                <md-chips ng-model="ctrl.selectedVegetables" md-autocomplete-snap md-transform-chip="ctrl.transformChip($chip)" md-require-match="ctrl.autocompleteDemoRequireMatch">
-                  <md-autocomplete md-selected-item="ctrl.selectedItem"
-                    md-search-text="ctrl.searchText" md-items="item in
-                    ctrl.querySearch(ctrl.searchText)"
-                    md-item-text="item.name" placeholder="Add Tags...">
-                    <span md-highlight-text="ctrl.searchText">{{item.name}} :: {{item.type}}</span>
-                  </md-autocomplete>
+                <!--
+                <md-chips ng-model="timer.tags" md-transform-chip="$scope.makeTag($chip)" placeholder="Add Tags...">
                   <md-chip-template>
-                    <span>
-                      <strong>{{$chip.name}}</strong>
-                      <em>({{$chip.type}})</em>
-                    </span>
+                    {{$chip.name}}
                   </md-chip-template>
                 </md-chips>
+                -->
+                <div ng-controller="ChipCtrl as ctrl" layout="column" ng-cloak>
+                  <md-chips ng-model="timer.tags" md-transform-chip="ctrl.newTag($chip)" md-on-add="ctrl.addTag($chip, timer)" md-on-remove="ctrl.removeTag(timer)">
+                    <md-chip-template>
+                      <span>
+                        <strong>{{$chip.name}}</strong>
+                      </span>
+                    </md-chip-template>
+                  </md-chips>
+	              </div>
                 <div layout="row" layout-align="end right">
                   <div>
-                    <md-button class="md-icon-button" ng-click="remove(timer)">
+                    <md-button aria-label="Remove the timer" class="md-icon-button" ng-click="remove(timer)">
                       <i class="fa fa-trash"></i>
                     </md-button>
                   </div>
                   <div layout="row">
-                    <md-button class="md-icon-button" ng-click="stop(timer)" ng-show="timer.time.state == 1 || timer.time.state == 2">
+                    <md-button aria-label="Stop the timer" class="md-icon-button" ng-click="stop(timer)" ng-show="timer.time.state == 1 || timer.time.state == 2">
                       <i class="fa fa-stop"></i>
                     </md-button>
-                    <md-button class="md-icon-button" ng-click="pause(timer)" ng-show="timer.time.state == 1">
+                    <md-button aria-label="Pause the timer" class="md-icon-button" ng-click="pause(timer)" ng-show="timer.time.state == 1">
                       <i class="fa fa-pause"></i>
                     </md-button>
-                    <md-button class="md-icon-button" ng-click="start(timer)" ng-show="timer.time.state == 0 || timer.time.state == 2">
+                    <md-button aria-label="Start the timer" class="md-icon-button" ng-click="start(timer)" ng-show="timer.time.state == 0 || timer.time.state == 2">
                       <i class="fa fa-play"></i> 
                     </md-button>
                   </div>

@@ -133,6 +133,44 @@ controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timer
 
 }]);
 
+controllers.controller('ChipCtrl', ['$scope', '$rootScope', 'Timers', 'Tags', function($scope, $rootScope, Timers, Tags) {
+            var self = this;
+            self.readonly = false;
+
+            self.tags = []
+            var response = Tags.query();
+            response.$promise.then(function(data){
+                self.tags = data.data;
+            });
+
+            self.newTag = function(tag) {
+                // Look if there is already a tag with this name. If so return
+                // it. Otherwise return a new empty tag.
+                for (var i = 0, len = self.tags.length; i < len; i++) {
+                   if (self.tags[i].name == tag) {
+                      return self.tags[i];
+                   }
+                }
+                return {name: tag, description: "", id: ""}
+            };
+
+            self.addTag = function(tag, timer) {
+                if ( tag.id == "" ) {
+                    var response = Tags.save(tag);
+                    response.$promise.then(function(data){
+                        tag.id = data.data.id;
+                        Timers.update(timer);
+                    });
+                } else {
+                        Timers.update(timer);
+                }
+            };
+
+            self.removeTag = function(timer) {
+                Timers.update(timer);
+            };
+}]);
+
 controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', function($scope, $rootScope, Timers, Times) {
 
     var setTags = function(time, tags) {
@@ -198,7 +236,19 @@ controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', 
         timer.tags.push(tag);
         Timers.update(timer);
       }
-    }
+    };
+
+    $scope.addTag = function(timer, tag) {
+      if (timer.tags.indexOf(tag) == -1) {
+        timer.tags.push(tag);
+        Timers.update(timer);
+      }
+    };
+
+    $scope.makeTag = function(tag) {
+        console.log(tag);
+        return {name: tag};
+    };
 
     $scope.removeTag = function(timer, tag) {
       var index = timer.tags.indexOf(tag)
