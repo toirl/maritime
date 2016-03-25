@@ -136,6 +136,10 @@ controllers.controller('TimersCtrl', ['$scope', 'Timers', function($scope, Timer
 controllers.controller('ChipCtrl', ['$scope', '$rootScope', 'Timers', 'Tags', function($scope, $rootScope, Timers, Tags) {
             var self = this;
             self.readonly = false;
+            self.searchText = null;
+            self.selectedItem = null;
+            self.querySearch = querySearch;
+            self.autocompleteDemoRequireMatch = false;
 
             self.tags = []
             var response = Tags.query();
@@ -145,7 +149,12 @@ controllers.controller('ChipCtrl', ['$scope', '$rootScope', 'Timers', 'Tags', fu
 
             self.newTag = function(tag) {
                 // Look if there is already a tag with this name. If so return
-                // it. Otherwise return a new empty tag.
+                // it. Otherwise return a new empty tag. If tag is already an
+                // object then this is a tag found using autocomplete
+                // mechanism.
+                if (angular.isObject(tag)) {
+                    return tag;
+                }
                 for (var i = 0, len = self.tags.length; i < len; i++) {
                    if (self.tags[i].name == tag) {
                       return self.tags[i];
@@ -169,6 +178,27 @@ controllers.controller('ChipCtrl', ['$scope', '$rootScope', 'Timers', 'Tags', fu
             self.removeTag = function(timer) {
                 Timers.update(timer);
             };
+
+            /**
+             * Search for vegetables.
+             */
+            function querySearch (query) {
+                var results = query ? self.tags.filter(createFilterFor(query)) : [];
+                return results;
+            }
+
+            /**
+             * Create filter function for a query string
+             */
+            function createFilterFor(query) {
+              var lowercaseQuery = angular.lowercase(query);
+
+              return function filterFn(tag) {
+                var name = angular.lowercase(tag.name);
+                return (name.indexOf(lowercaseQuery) === 0);
+              };
+
+            }
 }]);
 
 controllers.controller('TimerCtrl', ['$scope', '$rootScope', 'Timers', 'Times', function($scope, $rootScope, Timers, Times) {

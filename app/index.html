@@ -53,10 +53,18 @@
                 </md-chips>
                 -->
                 <div ng-controller="ChipCtrl as ctrl" layout="column" ng-cloak>
-                  <md-chips ng-model="timer.tags" md-transform-chip="ctrl.newTag($chip)" md-on-add="ctrl.addTag($chip, timer)" md-on-remove="ctrl.removeTag(timer)">
+                  <md-chips md-require-match="ctrl.autocompleteDemoRequireMatch" ng-model="timer.tags" md-transform-chip="ctrl.newTag($chip)" md-on-add="ctrl.addTag($chip, timer)" md-on-remove="ctrl.removeTag(timer)">
+                    <md-autocomplete 
+                      md-selected-item="ctrl.selectedItem"
+                      md-search-text="ctrl.searchText"
+                      md-items="item in ctrl.querySearch(ctrl.searchText)"
+                      md-item-text="item.name"
+                      placeholder="+Tag">
+                      <span md-highlight-text="ctrl.searchText">{{item.name}}</span>
+                    </md-autocomplete>
                     <md-chip-template>
                       <span>
-                        <strong>{{$chip.name}}</strong>
+                        {{$chip.name}}
                       </span>
                     </md-chip-template>
                   </md-chips>
