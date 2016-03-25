@@ -34,10 +34,34 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
 }]);
 
 controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($scope, $rootScope, Times) {
+
   $scope.times = [];
 
   // editingdata stores information on which table row is currently edited.
   $scope.editingData = [];
+
+  // Ordering, Pagination and Selection.
+  $scope.selected = [];
+  $scope.query = {
+    order: 'start_date',
+    limit: 5,
+    page: 1
+  };
+
+  $scope.onReorder = function (order) {
+    if (order == "id") {
+        $scope.times.sort(function(a, b){return a.id-b.id});
+    }
+    if (order == "-id") {
+        $scope.times.sort(function(a, b){return b.id-a.id});
+    }
+    if (order == "duration") {
+        $scope.times.sort(function(a, b){return a.duration-b.duration});
+    }
+    if (order == "-duration") {
+        $scope.times.sort(function(a, b){return b.duration-a.duration});
+    }
+  };
 
   var response = Times.query();
   response.$promise.then(function(data){

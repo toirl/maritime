@@ -11,6 +11,7 @@
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"/>
+    <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
     <link rel="stylesheet" href="app.css"/>
 
     <style type="text/css">
@@ -31,7 +32,7 @@
         </div>
       </md-toolbar>
       <div layout="row" layout-xs="column">
-        <md-content flex-md="35" layout-padding id="sidebar" ng-controller="TimersCtrl">
+        <md-content flex-md="30" layout-padding id="sidebar" ng-controller="TimersCtrl">
           <md-subheader class="md-primary">
             <md-button class="md-fab md-mini" aria-label="Add a new Timer" ng-click="add()">
               <i class="fa fa-plus"></i>
@@ -84,14 +85,25 @@
             </md-list-item>
           </md-list>
         </md-content>
-        <md-content flex layout-padding layout-fill>
-          <md-tabs md-dynamic-height="" md-border-bottom="">
-            <md-tab label="Timelog">
-              <md-content class="md-padding">
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla venenatis ante augue. Phasellus volutpat neque ac dui mattis vulputate. Etiam consequat aliquam cursus. In sodales pretium ultrices. Maecenas lectus est, sollicitudin consectetur felis nec, feugiat ultricies mi.</p>
-              </md-content>
-            </md-tab>
-          </md-tabs>
+        <md-content class="md-padding" ng-controller="TimesCtrl">
+          <md-table-container>
+            <table md-table>
+                <thead md-head md-order="query.order" md-on-reorder="onReorder">
+                <tr md-row>
+                  <th md-column md-order-by="id" width="80px"><span>Date</span></th>
+                  <th md-column><span>Description</span></th>
+                  <th md-column width="100px"><span>Tags</span></th>
+                  <th md-column md-order-by="duration" md-numeric><span>Duration</span></th>
+                </tr>
+              </thead>
+              <tbody md-body>
+                <tr md-row md-select="time" md-select-id="{{time.id}}" md-auto-select ng-repeat="time in times">
+                  <td md-cell>{{time.start_date}}</td>
+                  <td md-cell>{{time.description}}</td>
+                  <td md-cell><span ng-repeat="tag in time.tags">{{tag.name}}{{$last ? '' : ', '}}</span></td>
+                  <td md-cell>{{time.duration | duration}}</td>
+                </tr>
+              </thead>
         </md-content>
       </div>
     </div>
@@ -107,6 +119,7 @@
     <script src="bower_components/angular-dragdrop/src/angular-dragdrop.min.js"></script>
     <script src="bower_components/angular-timer/dist/angular-timer.min.js"></script>
     <script src="bower_components/humanize-duration/humanize-duration.js"></script>
+    <script src="bower_components/angular-material-data-table/dist/md-data-table.min.js"></script>
     <script src="app.js"></script>
     <script src="components/services.js"></script>
     <script src="components/controllers.js"></script>

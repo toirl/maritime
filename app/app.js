@@ -7,6 +7,7 @@ var app = angular.module('maritime', [
   'ngRoute',
   'ngDragDrop',
   'timer',
+  'md.data.table',
   'maritime.filters',
   'maritime.services',
   'maritime.controllers'
