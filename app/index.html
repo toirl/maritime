@@ -45,13 +45,6 @@
                   <label>Description</label>
                   <input ng-blur="update(timer)" ng-model="timer.description" placeholder="Describe what you´re about to do">
                 </md-input-container>
-                <!--
-                <md-chips ng-model="timer.tags" md-transform-chip="$scope.makeTag($chip)" placeholder="Add Tags...">
-                  <md-chip-template>
-                    {{$chip.name}}
-                  </md-chip-template>
-                </md-chips>
-                -->
                 <div ng-controller="ChipCtrl as ctrl" layout="column" ng-cloak>
                   <md-chips md-require-match="ctrl.autocompleteDemoRequireMatch" ng-model="timer.tags" md-transform-chip="ctrl.newTag($chip)" md-on-add="ctrl.addTag($chip, timer)" md-on-remove="ctrl.removeTag(timer)">
                     <md-autocomplete 
