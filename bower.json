@@ -15,5 +15,7 @@
     "angular-timer": "~1.3.3",
     "angular-material": "",
     "moment": "~2",
+    "angular-material-data-table": "",
+    "font-awesome": ""
   }
 }
