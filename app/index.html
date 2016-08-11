@@ -94,6 +94,7 @@
                   <th md-column><span>Description</span></th>
                   <th md-column width="100px"><span>Tags</span></th>
                   <th md-column md-order-by="duration" md-numeric><span>Duration</span></th>
+                  <th md-column><span>Action</span></th>
                 </tr>
               </thead>
               <tbody md-body>
@@ -102,6 +103,7 @@
                   <td md-cell>{{time.description}}</td>
                   <td md-cell><span ng-repeat="tag in time.tags">{{tag.name}}{{$last ? '' : ', '}}</span></td>
                   <td md-cell>{{time.duration | duration}}</td>
+                  <td md-cell><span ng-click="remove(time)">Delete</span></td>
                 </tr>
               </thead>
         </md-content>
