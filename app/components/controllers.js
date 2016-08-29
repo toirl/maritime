@@ -84,6 +84,9 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
       $scope.times = data.data;
   });
 
+  $scope.update = function(time) {
+      Times.update(time);
+  }
   $scope.isEditing = function(time) {
       return $scope.editingData.indexOf(time.id) > -1;
   }
