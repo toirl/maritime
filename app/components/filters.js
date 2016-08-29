@@ -12,3 +12,9 @@ filters.filter('duration', function() {
         return pad(duration.hours(), 2)+":"+pad(duration.minutes(), 2)+":"+pad(duration.seconds(), 2)
     };
 });
+filters.filter('humanDuration', function() {
+    return function(sec) {
+        var duration = moment.duration(sec, 'seconds');
+        return duration.humanize(); 
+    };
+});
