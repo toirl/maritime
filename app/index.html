@@ -86,34 +86,50 @@
           </md-list>
         </md-content>
         <md-content class="md-padding" ng-controller="TimesCtrl">
-          <md-table-container>
-            <table md-table>
-                <thead md-head md-order="query.order" md-on-reorder="onReorder">
-                <tr md-row>
-                  <th md-column md-order-by="start_date" width="80px"><span>Date</span></th>
-                  <th md-column><span>Description</span></th>
-                  <th md-column width="100px"><span>Tags</span></th>
-                  <th md-column md-order-by="duration" md-numeric><span>Duration</span></th>
-                  <th md-column><span>Action</span></th>
-                </tr>
-              </thead>
-              <tbody md-body>
-                <tr md-row md-select="time" md-select-id="{{time.id}}" md-auto-select ng-repeat="time in times">
-                  <td md-cell ng-click="edit($event, time, 'start_date')">
-                    <span>{{time.start_date}}</span>
-                  </td>
-                  <td md-cell ng-click="edit($event, time, 'description')">
-                    <span>{{time.description}}</span>
-                  </td>
-                  <td md-cell><span ng-repeat="tag in time.tags">{{tag.name}}{{$last ? '' : ', '}}</span></td>
-                  <td md-cell ng-click="edit($event, time, 'duration')">
-                    <span>{{time.duration | duration}}</span>
-                  </td>
-                  <td md-cell>
-                    <span ng-click="remove(time)">Delete</span>
-                  </td>
-                </tr>
-              </thead>
+          <md-card>
+            <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+              <div class="md-toolbar-tools">
+                <span>Times</span>
+                <div flex></div>
+              </div>
+            </md-toolbar>
+            <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+              <div class="md-toolbar-tools">
+                <span>{{selected.length}} {{selected.length > 1 ? 'times' : 'time'}} selected</span>
+                <div flex></div>
+              </div>
+            </md-toolbar>
+            <md-table-container>
+              <table md-table md-row-select="true" ng-model="selected" multiple="true">
+                  <thead md-head md-order="query.order" md-on-reorder="onReorder">
+                  <tr md-row>
+                    <th md-column md-order-by="start_date" width="80px"><span>Date</span></th>
+                    <th md-column><span>Description</span></th>
+                    <th md-column width="100px"><span>Tags</span></th>
+                    <th md-column md-order-by="duration" md-numeric><span>Duration</span></th>
+                    <th md-column><span>Action</span></th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row md-select="time" md-select-id="{{time.id}}" md-auto-select ng-repeat="time in times">
+                    <td md-cell ng-click="edit($event, time, 'start_date')">
+                      <span>{{time.start_date}}</span>
+                    </td>
+                    <td md-cell ng-click="edit($event, time, 'description')">
+                      <span>{{time.description}}</span>
+                    </td>
+                    <td md-cell><span ng-repeat="tag in time.tags">{{tag.name}}{{$last ? '' : ', '}}</span></td>
+                    <td md-cell ng-click="edit($event, time, 'duration')">
+                      <span>{{time.duration | duration}}</span>
+                    </td>
+                    <td md-cell>
+                      <span ng-click="remove(time)">Delete</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          <md-card>
         </md-content>
       </div>
     </div>
