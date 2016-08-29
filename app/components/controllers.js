@@ -49,11 +49,27 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
   };
 
   $scope.onReorder = function (order) {
-    if (order == "id") {
-        $scope.times.sort(function(a, b){return a.id-b.id});
+    if (order == "start_date") {
+        $scope.times.sort(function(a, b){
+            if (a.start_date < b.start_date) {
+                return -1
+            } else if (a.start_date > b.start_date) {
+                return 1
+            } else {
+                return 0
+            }
+        });
     }
-    if (order == "-id") {
-        $scope.times.sort(function(a, b){return b.id-a.id});
+    if (order == "-start_date") {
+        $scope.times.sort(function(b, a){
+            if (a.start_date < b.start_date) {
+                return -1
+            } else if (a.start_date > b.start_date) {
+                return 1
+            } else {
+                return 0
+            }
+        });
     }
     if (order == "duration") {
         $scope.times.sort(function(a, b){return a.duration-b.duration});
