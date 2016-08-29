@@ -99,27 +99,17 @@
               </thead>
               <tbody md-body>
                 <tr md-row md-select="time" md-select-id="{{time.id}}" md-auto-select ng-repeat="time in times">
-                  <td md-cell>
-                    <span ng-if="!editMode">{{time.start_date}}</span>
-                    <span ng-if="editMode">
-                      <input ng-blur="update(time); editMode = false" ng-model="time.start_date">
-                    </span>
+                  <td md-cell ng-click="edit($event, time, 'start_date')">
+                    <span>{{time.start_date}}</span>
                   </td>
-                  <td md-cell>
-                    <span ng-if="!editMode">{{time.description}}</span>
-                    <span ng-if="editMode">
-                      <input ng-blur="update(time); editMode = false" ng-model="time.description">
-                    </span>
+                  <td md-cell ng-click="edit($event, time, 'description')">
+                    <span>{{time.description}}</span>
                   </td>
                   <td md-cell><span ng-repeat="tag in time.tags">{{tag.name}}{{$last ? '' : ', '}}</span></td>
-                  <td md-cell>
-                    <span ng-if="!editMode">{{time.duration | duration}}</span>
-                    <span ng-if="editMode">
-                      <input ng-blur="update(time); editMode = false" ng-model="time.duration">
-                    </span>
+                  <td md-cell ng-click="edit($event, time, 'duration')">
+                    <span>{{time.duration | duration}}</span>
                   </td>
                   <td md-cell>
-                    <span ng-click="editMode = !editMode">Edit</span>
                     <span ng-click="remove(time)">Delete</span>
                   </td>
                 </tr>

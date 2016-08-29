@@ -33,7 +33,7 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
 
 }]);
 
-controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($scope, $rootScope, Times) {
+controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'Times', function($mdEditDialog, $scope, $rootScope, Times) {
 
   $scope.times = [];
 
@@ -87,17 +87,23 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
   $scope.update = function(time) {
       Times.update(time);
   }
-  $scope.isEditing = function(time) {
-      return $scope.editingData.indexOf(time.id) > -1;
-  }
-  $scope.editStart = function(time) {
-      $scope.editingData.push(time.id);
-  }
-  $scope.editStop = function(time) {
-      $scope.editingData.splice($scope.editingData.indexOf(time.id),1);
-      Times.update(time);
-  }
 
+  $scope.edit = function (event, time, field) {
+    // if auto selection is enabled you will want to stop the event
+    // from propagating and selecting the row
+    event.stopPropagation();
+
+    var promise = $mdEditDialog.small({
+      modelValue: $(time).attr(field),
+      save: function (input) {
+        $(time).attr(field, input.$modelValue);
+        Times.update(time);
+      },
+      targetEvent: event,
+      validators: {
+      }
+    });
+  };
 
   // Calculate the total time of all time entries. Please note that this
   // function seems to be called per item in the $scope.times array, and is
