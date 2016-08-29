@@ -16,6 +16,7 @@
     "angular-material": "",
     "angular-material-data-table": "",
     "moment": "~2",
+    "material-design-icons": "",
     "font-awesome": ""
   }
 }

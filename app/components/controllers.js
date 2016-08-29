@@ -42,6 +42,7 @@ controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'T
 
   // Ordering, Pagination and Selection.
   $scope.selected = [];
+  $scope.searchFilter = '';
   $scope.query = {
     order: 'start_date',
     limit: 5,
@@ -110,18 +111,20 @@ controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'T
   // recalled if this array changes.
   $scope.totalTime = function(times) {
     totalTime = 0;
-    for (var time = 0, len = $scope.times.length; time < len; time++) {
-      totalTime += $scope.times[time].duration;
+    for (var time = 0, len = times.length; time < len; time++) {
+      totalTime += times[time].duration;
     }
     return totalTime;
   }
   //
   // Remove the timelog
-  $scope.remove = function(time) {
-    var index = $scope.times.indexOf(time)
-    if (index > -1) {
-        Times.remove(time);
-        $scope.times.splice(index, 1)
+  $scope.remove = function(selected) {
+    for (var i = 0, len = selected.length; i < len; i++) {
+      var index = $scope.times.indexOf(selected[i])
+      if (index > -1) {
+          Times.remove(selected[i]);
+          $scope.times.splice(index, 1)
+      }
     }
   }
 
