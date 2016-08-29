@@ -33,7 +33,7 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
 
 }]);
 
-controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($scope, $rootScope, Times) {
+controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'Times', function($mdEditDialog, $scope, $rootScope, Times) {
 
   $scope.times = [];
 
@@ -42,6 +42,7 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
 
   // Ordering, Pagination and Selection.
   $scope.selected = [];
+  $scope.searchFilter = '';
   $scope.query = {
     order: 'start_date',
     limit: 5,
@@ -49,11 +50,27 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
   };
 
   $scope.onReorder = function (order) {
-    if (order == "id") {
-        $scope.times.sort(function(a, b){return a.id-b.id});
+    if (order == "start_date") {
+        $scope.times.sort(function(a, b){
+            if (a.start_date < b.start_date) {
+                return -1
+            } else if (a.start_date > b.start_date) {
+                return 1
+            } else {
+                return 0
+            }
+        });
     }
-    if (order == "-id") {
-        $scope.times.sort(function(a, b){return b.id-a.id});
+    if (order == "-start_date") {
+        $scope.times.sort(function(b, a){
+            if (a.start_date < b.start_date) {
+                return -1
+            } else if (a.start_date > b.start_date) {
+                return 1
+            } else {
+                return 0
+            }
+        });
     }
     if (order == "duration") {
         $scope.times.sort(function(a, b){return a.duration-b.duration});
@@ -68,35 +85,46 @@ controllers.controller('TimesCtrl', ['$scope', '$rootScope', 'Times', function($
       $scope.times = data.data;
   });
 
-  $scope.isEditing = function(time) {
-      return $scope.editingData.indexOf(time.id) > -1;
-  }
-  $scope.editStart = function(time) {
-      $scope.editingData.push(time.id);
-  }
-  $scope.editStop = function(time) {
-      $scope.editingData.splice($scope.editingData.indexOf(time.id),1);
+  $scope.update = function(time) {
       Times.update(time);
   }
 
+  $scope.edit = function (event, time, field) {
+    // if auto selection is enabled you will want to stop the event
+    // from propagating and selecting the row
+    event.stopPropagation();
+
+    var promise = $mdEditDialog.small({
+      modelValue: $(time).attr(field),
+      save: function (input) {
+        $(time).attr(field, input.$modelValue);
+        Times.update(time);
+      },
+      targetEvent: event,
+      validators: {
+      }
+    });
+  };
 
   // Calculate the total time of all time entries. Please note that this
   // function seems to be called per item in the $scope.times array, and is
   // recalled if this array changes.
   $scope.totalTime = function(times) {
     totalTime = 0;
-    for (var time = 0, len = $scope.times.length; time < len; time++) {
-      totalTime += $scope.times[time].duration;
+    for (var time = 0, len = times.length; time < len; time++) {
+      totalTime += times[time].duration;
     }
     return totalTime;
   }
   //
   // Remove the timelog
-  $scope.remove = function(time) {
-    var index = $scope.times.indexOf(time)
-    if (index > -1) {
-        Times.remove(time);
-        $scope.times.splice(index, 1)
+  $scope.remove = function(selected) {
+    for (var i = 0, len = selected.length; i < len; i++) {
+      var index = $scope.times.indexOf(selected[i])
+      if (index > -1) {
+          Times.remove(selected[i]);
+          $scope.times.splice(index, 1)
+      }
     }
   }
 

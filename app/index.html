@@ -9,6 +9,7 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no" />
 
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="bower_components/angular-material/angular-material.css"/>
     <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css"/>
     <link href="bower_components/angular-material-data-table/dist/md-data-table.min.css" rel="stylesheet" type="text/css"/>
@@ -31,8 +32,8 @@
           <h2 class="md-flex">Maritime</h2>
         </div>
       </md-toolbar>
-      <div layout="row" layout-xs="column">
-        <md-content flex-md="40" layout-padding id="sidebar" ng-controller="TimersCtrl">
+      <div flex layout="row" layout-xs="column">
+        <md-content flex="15" layout-padding id="sidebar" ng-controller="TimersCtrl">
           <md-subheader class="md-primary">
             <md-button class="md-fab md-mini" aria-label="Add a new Timer" ng-click="add()">
               <i class="fa fa-plus"></i>
@@ -85,27 +86,54 @@
             </md-list-item>
           </md-list>
         </md-content>
-        <md-content class="md-padding" ng-controller="TimesCtrl">
-          <md-table-container>
-            <table md-table>
-                <thead md-head md-order="query.order" md-on-reorder="onReorder">
-                <tr md-row>
-                  <th md-column md-order-by="id" width="80px"><span>Date</span></th>
-                  <th md-column><span>Description</span></th>
-                  <th md-column width="100px"><span>Tags</span></th>
-                  <th md-column md-order-by="duration" md-numeric><span>Duration</span></th>
-                  <th md-column><span>Action</span></th>
-                </tr>
-              </thead>
-              <tbody md-body>
-                <tr md-row md-select="time" md-select-id="{{time.id}}" md-auto-select ng-repeat="time in times">
-                  <td md-cell>{{time.start_date}}</td>
-                  <td md-cell>{{time.description}}</td>
-                  <td md-cell><span ng-repeat="tag in time.tags">{{tag.name}}{{$last ? '' : ', '}}</span></td>
-                  <td md-cell>{{time.duration | duration}}</td>
-                  <td md-cell><span ng-click="remove(time)">Delete</span></td>
-                </tr>
-              </thead>
+        <md-content flex class="md-padding" ng-controller="TimesCtrl">
+          <md-card>
+            <md-toolbar class="md-table-toolbar md-default" ng-hide="selected.length">
+              <div class="md-toolbar-tools">
+                <span>Total: {{totalTime(times) | duration}}</span>
+                <div flex></div>
+                <md-input-container style="margin-top:65px;">
+                    <label><i class="material-icons">search</i></label>
+                    <input type="text" ng-model="searchFilter">
+                </md-input-container>
+              </div>
+            </md-toolbar>
+            <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+              <div class="md-toolbar-tools">
+                <span>{{selected.length}} {{selected.length > 1 ? 'times' :
+                  'time'}} ({{totalTime(selected) | duration}}) selected</span>
+                <div flex></div>
+                  <i class="material-icons" ng-click="remove(selected)">delete</i>
+              </div>
+            </md-toolbar>
+            <md-table-container>
+              <table md-table md-row-select="true" ng-model="selected" multiple="true">
+                  <thead md-head md-order="query.order" md-on-reorder="onReorder">
+                  <tr md-row>
+                    <th md-column md-order-by="start_date" width="80px"><span>Date</span></th>
+                    <th md-column><span>Description</span></th>
+                    <th md-column width="100px"><span>Tags</span></th>
+                    <th md-column md-order-by="duration" md-numeric><span>Duration</span></th>
+                  </tr>
+                </thead>
+                <tbody md-body>
+                  <tr md-row md-select="time" md-auto-select="false"
+                    md-select-id="{{time.id}}" md-auto-select ng-repeat="time in times | filter:searchFilter">
+                    <td md-cell ng-click="edit($event, time, 'start_date')">
+                      <span>{{time.start_date}}</span>
+                    </td>
+                    <td md-cell ng-click="edit($event, time, 'description')">
+                      <span>{{time.description}}</span>
+                    </td>
+                    <td md-cell><span ng-repeat="tag in time.tags">{{tag.name}}{{$last ? '' : ', '}}</span></td>
+                    <td md-cell ng-click="edit($event, time, 'duration')">
+                      <span>{{time.duration | duration}}</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </md-table-container>
+          </md-card>
         </md-content>
       </div>
     </div>
