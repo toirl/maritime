@@ -98,12 +98,14 @@
                 </md-input-container>
               </div>
             </md-toolbar>
-            <md-toolbar class="md-table-toolbar alternate" ng-show="selected.length">
+            <md-toolbar ng-show="selected.length">
               <div class="md-toolbar-tools">
                 <span>{{selected.length}} {{selected.length > 1 ? 'times' :
                   'time'}} ({{totalTime(selected) | duration}}) selected</span>
                 <div flex></div>
-                  <i class="material-icons" ng-click="remove(selected)">delete</i>
+                <md-button ng-click="remove(selected)" class="md-icon-button" aria-label="Delete Times">
+                  <md-icon class="material-icons md-light">delete</md-icon>
+                </md-button>
               </div>
             </md-toolbar>
             <md-table-container>
