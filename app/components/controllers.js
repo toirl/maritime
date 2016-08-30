@@ -89,6 +89,15 @@ controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'T
       Times.update(time);
   }
 
+  $scope.getExportUrl= function(times) {
+      time_ids = []
+      for (var i = 0, len = times.length; i < len; i++) {
+          time_ids.push(times[i].id);
+      }
+      return "times/export" + encodeURI("?times="+time_ids)
+  }
+
+
   $scope.edit = function (event, time, field) {
     // if auto selection is enabled you will want to stop the event
     // from propagating and selecting the row

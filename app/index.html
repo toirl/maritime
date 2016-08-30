@@ -103,9 +103,7 @@
                 <span>{{selected.length}} {{selected.length > 1 ? 'times' :
                   'time'}} ({{totalTime(selected) | duration}}) selected</span>
                 <div flex></div>
-                <md-button ng-click="export(selected)" class="md-icon-button" aria-label="Export Times (zeiterfassung.txt)">
-                  <md-icon md-font-icon="material-icons">save</md-icon>
-                </md-button>
+                <a href="{{getExportUrl(selected)}}">Download</a>
                 <md-button ng-click="remove(selected)" class="md-icon-button" aria-label="Delete Times">
                   <md-icon class="material-icons md-light">delete</md-icon>
                 </md-button>
