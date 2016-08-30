@@ -33,7 +33,7 @@ controllers.controller('TagCtrl', ['$scope', '$rootScope', 'Tags', function($sco
 
 }]);
 
-controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'Times', function($mdEditDialog, $scope, $rootScope, Times) {
+controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'Times', 'AppConfig', function($mdEditDialog, $scope, $rootScope, Times, AppConfig) {
 
   $scope.times = [];
 
@@ -94,7 +94,7 @@ controllers.controller('TimesCtrl', ['$mdEditDialog', '$scope', '$rootScope', 'T
       for (var i = 0, len = times.length; i < len; i++) {
           time_ids.push(times[i].id);
       }
-      return "times/export" + encodeURI("?times="+time_ids)
+      return AppConfig.url+'/times/export' + encodeURI("?times="+time_ids)
   }
 
 

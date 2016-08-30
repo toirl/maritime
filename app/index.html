@@ -103,7 +103,11 @@
                 <span>{{selected.length}} {{selected.length > 1 ? 'times' :
                   'time'}} ({{totalTime(selected) | duration}}) selected</span>
                 <div flex></div>
-                <a href="{{getExportUrl(selected)}}">Download</a>
+                <a target_="_self" ng-href="{{getExportUrl(selected)}}">
+                  <md-button class="md-icon-button" aria-label="Save Times">
+                    <md-icon class="material-icons md-light">save</md-icon>
+                  </md-button>
+                </a>
                 <md-button ng-click="remove(selected)" class="md-icon-button" aria-label="Delete Times">
                   <md-icon class="material-icons md-light">delete</md-icon>
                 </md-button>
