@@ -118,6 +118,7 @@
                   <thead md-head md-order="query.order" md-on-reorder="onReorder">
                   <tr md-row>
                     <th md-column md-order-by="start_date" width="80px"><span>Date</span></th>
+                    <th md-column width="80px"><span>Week</span></th>
                     <th md-column><span>Description</span></th>
                     <th md-column width="100px"><span>Tags</span></th>
                     <th md-column md-order-by="duration" md-numeric><span>Duration</span></th>
@@ -128,6 +129,9 @@
                     md-select-id="{{time.id}}" md-auto-select ng-repeat="time in times | filter:searchFilter">
                     <td md-cell ng-click="edit($event, time, 'start_date')">
                       <span>{{time.start_date}}</span>
+                    </td>
+                    <td md-cell>
+                      <span>KW{{time.week}}</span>
                     </td>
                     <td md-cell ng-click="edit($event, time, 'description')">
                       <span>{{time.description}}</span>
