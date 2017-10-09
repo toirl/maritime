@@ -101,7 +101,7 @@
             <md-toolbar ng-show="selected.length">
               <div class="md-toolbar-tools">
                 <span>{{selected.length}} {{selected.length > 1 ? 'times' :
-                  'time'}} ({{totalTime(selected) | duration}}) selected</span>
+                  'time'}} ({{totalTime(selected) | humanDuration}}) selected</span>
                 <div flex></div>
                 <a target_="_self" ng-href="{{getExportUrl(selected)}}">
                   <md-button class="md-icon-button" aria-label="Save Times">
